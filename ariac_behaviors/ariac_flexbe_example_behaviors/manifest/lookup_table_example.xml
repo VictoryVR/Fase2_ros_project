@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="lookup_table_example">
+
+	<executable package_path="ariac_flexbe_example_behaviors.lookup_table_example_sm" class="lookup_table_exampleSM" />
+	<tagstring></tagstring>
+	<author>Gerard Harkema</author>
+	<date>Tue Apr 27 2021</date>
+	<description>
+		Example to lookup form table in parameter_server
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

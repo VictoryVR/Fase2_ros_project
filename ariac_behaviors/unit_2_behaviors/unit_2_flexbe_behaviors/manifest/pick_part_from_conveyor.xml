@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="pick_part_from_conveyor">
+
+	<executable package_path="unit_2_flexbe_behaviors.pick_part_from_conveyor_sm" class="pick_part_from_conveyorSM" />
+	<tagstring></tagstring>
+	<author>docent</author>
+	<date>Sun Apr 25 2021</date>
+	<description>
+		pick's a part form athe conveyor
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

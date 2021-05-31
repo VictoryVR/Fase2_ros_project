@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<tables>
+    <table name = "robot_2_table">
+
+      <bin name="bin6">
+        <robot_config value="robot1PreGraspBin6" />
+        <camera_topic value="/ariac/logical_camera_6" />
+        <camera_frame value="logical_camera_6_frame" />
+      </bin>
+
+      <bin name="bin5">
+        <robot_config value="robot1PreGraspBin5" />
+        <camera_topic value="/ariac/logical_camera_5" />
+        <camera_frame value="logical_camera_5_frame" />
+      </bin>
+
+      <bin name="bin4">
+        <robot_config value="robot1PreGraspBin4" /
+        <camera_topic value="/ariac/logical_camera_4" />
+        <camera_frame value="logical_camera_4_frame" />
+      </bin>
+
+      <bin name="bin3">
+        <robot_config value="robot1PreGraspBin3" />
+        <camera_topic value="/ariac/logical_camera_3" />
+        <camera_frame value="logical_camera_3_frame" />
+      </bin>
+
+    </table>
+
+    <table name = "robot_1_table">
+
+      <bin name="bin4">
+        <robot_config value="robot2PreGraspBin4" />
+        <camera_topic value="/ariac/logical_camera_4" />
+        <camera_frame value="logical_camera_4_frame" />
+      </bin>
+
+      <bin name="bin3">
+        <robot_config value="robot2PreGraspBin3" />
+        <camera_topic value="/ariac/logical_camera_3" />
+        <camera_frame value="logical_camera_3_frame" />
+      </bin>
+
+      <bin name="bin2">
+        <robot_config value="robot2PreGraspBin2" />
+        <camera_topic value="/ariac/logical_camera_2" />
+        <camera_frame value="logical_camera_2_frame" />
+      </bin>
+
+      <bin name="bin1">
+        <robot_config value="robot2PreGraspBin1" />
+        <camera_topic value="/ariac/logical_camera_1" />
+        <camera_frame value="logical_camera_1_frame" />
+      </bin>
+
+    </table>
+</tables>
