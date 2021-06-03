@@ -61,7 +61,7 @@
         <joint name="wrist_2_joint" value="-1.51" />
         <joint name="wrist_3_joint" value="0" />
     </group_state>
-    <group_state name="robot2Conveyor" group="manipulator">
+    <group_state name="robot1Conveyor" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-0.21" />
         <joint name="shoulder_pan_joint" value="-0.25" />
         <joint name="shoulder_lift_joint" value="-1.21" />
@@ -70,7 +70,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot2PreGraspBin6" group="manipulator">
+    <group_state name="robot1PreGraspBin6" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="1.14" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -79,7 +79,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot2PreGraspBin5" group="manipulator">
+    <group_state name="robot1PreGraspBin5" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="0.4" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -88,7 +88,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot2PreGraspBin4" group="manipulator">
+    <group_state name="robot1PreGraspBin4" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-0.38" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -97,7 +97,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot2PreGraspBin3" group="manipulator">
+    <group_state name="robot1PreGraspBin3" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-1.16" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -106,7 +106,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot2ATV" group="manipulator">
+    <group_state name="robot1ATV" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="1.18" />
         <joint name="shoulder_pan_joint" value="1.48" />
         <joint name="shoulder_lift_joint" value="-0.58" />
@@ -115,7 +115,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1Conveyor" group="manipulator">
+    <group_state name="robot2Conveyor" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="0.79" />
         <joint name="shoulder_pan_joint" value="0.25" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -124,7 +124,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1PreGraspBin1" group="manipulator">
+    <group_state name="robot2PreGraspBin1" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-0.84" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -133,7 +133,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1PreGraspBin2" group="manipulator">
+    <group_state name="robot2PreGraspBin2" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-0.05" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -142,7 +142,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1PreGraspBin3" group="manipulator">
+    <group_state name="robot2PreGraspBin3" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="0.71" />
         <joint name="shoulder_pan_joint" value="3.11" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -151,7 +151,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1PreGraspBin4" group="manipulator">
+    <group_state name="robot2PreGraspBin4" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="1.18" />
         <joint name="shoulder_pan_joint" value="2.76" />
         <joint name="shoulder_lift_joint" value="-1.08" />
@@ -160,7 +160,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1ATV" group="manipulator">
+    <group_state name="robot2ATV" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-1.18" />
         <joint name="shoulder_pan_joint" value="4.55" />
         <joint name="shoulder_lift_joint" value="-0.58" />

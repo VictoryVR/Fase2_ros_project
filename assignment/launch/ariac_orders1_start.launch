@@ -31,12 +31,10 @@
 		  $(find assignment)/config/sensors/$(arg sensor_config)
 		  " required="true" output="screen" />
 
-	<param name="ariac_tables_unit1" textfile="$(find assignment)/config/ariac_unit1_tables.tbl" />
-	<param name="ariac_tables_unit2" textfile="$(find assignment)/config/ariac_unit2_tables.tbl" />
+	<param name="ariac_unit1_tables" textfile="$(find assignment)/config/ariac_unit1_tables.tbl" />
+	<param name="ariac_unit2_tables" textfile="$(find assignment)/config/ariac_unit2_tables.tbl" />
 
 	<node pkg="assignment" type="timed_roslaunch.sh" name="timed_roslaunch" output="screen"
 	    args="5 assignment move_groups_start.launch" />
 
 </launch>
-
-

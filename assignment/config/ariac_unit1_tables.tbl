@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <tables>
-    <table name = "robot_2_table">
+    <table name="robot_1_table">
 
       <bin name="bin6">
         <robot_config value="robot1PreGraspBin6" />
@@ -15,7 +15,7 @@
       </bin>
 
       <bin name="bin4">
-        <robot_config value="robot1PreGraspBin4" /
+        <robot_config value="robot1PreGraspBin4" />
         <camera_topic value="/ariac/logical_camera_4" />
         <camera_frame value="logical_camera_4_frame" />
       </bin>
@@ -28,7 +28,7 @@
 
     </table>
 
-    <table name = "robot_1_table">
+    <table name="robot_2_table">
 
       <bin name="bin4">
         <robot_config value="robot2PreGraspBin4" />
@@ -55,4 +55,17 @@
       </bin>
 
     </table>
+
+    <table name="partheight_config">
+      <part name="gasket_part">
+        <part_height_param value="0.038"/>
+      </part>
+      <part name="gear_part">
+        <part_height_param value="0.025"/>
+      </part>
+      <part name="piston_rod_part">
+        <part_height_param value="0.018"/>
+      </part>
+    </table>
+
 </tables>

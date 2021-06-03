@@ -46,7 +46,7 @@ class pick_part_from_bin_testSM(Behavior):
 	def create(self):
 		# x:30 y:365, x:130 y:365
 		_state_machine = OperatableStateMachine(outcomes=['finished', 'failed'])
-		_state_machine.userdata.part = 'gasket_part'
+		_state_machine.userdata.part = 'gear_part'
 		_state_machine.userdata.robot_namespace = '/ariac/arm1'
 		_state_machine.userdata.robot = 1
 
@@ -62,7 +62,7 @@ class pick_part_from_bin_testSM(Behavior):
 										self.use_behavior(pick_part_from_binSM, 'PickPartFromBin'),
 										transitions={'finished': 'finished', 'failed': 'failed'},
 										autonomy={'finished': Autonomy.Inherit, 'failed': Autonomy.Inherit},
-										remapping={'part': 'part', 'robot_namespace': 'robot_namespace'})
+										remapping={'part': 'part', 'robot_namespace': 'robot_namespace', 'robot': 'robot'})
 
 
 		return _state_machine
