@@ -13,6 +13,8 @@
 
 	<!-- Contained Behaviors -->
 	<contains name="pick_part_from_bin" />
+	<contains name="get_order" />
+	<contains name="unit1_AGV_place_move" />
 
 	<!-- Available Parameters -->
 

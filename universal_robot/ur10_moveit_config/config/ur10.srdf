@@ -106,7 +106,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot1ATV" group="manipulator">
+    <group_state name="robot1AGV" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="1.18" />
         <joint name="shoulder_pan_joint" value="1.48" />
         <joint name="shoulder_lift_joint" value="-0.58" />
@@ -160,7 +160,7 @@
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
     </group_state>
-    <group_state name="robot2ATV" group="manipulator">
+    <group_state name="robot2AGV" group="manipulator">
         <joint name="linear_arm_actuator_joint" value="-1.18" />
         <joint name="shoulder_pan_joint" value="4.55" />
         <joint name="shoulder_lift_joint" value="-0.58" />
@@ -168,6 +168,24 @@
         <joint name="wrist_1_joint" value="4.17" />
         <joint name="wrist_2_joint" value="-1.58" />
         <joint name="wrist_3_joint" value="1.63" />
+    </group_state>
+    <group_state name="robot1Home" group="manipulator">
+        <joint name="linear_arm_actuator_joint" value="0.64" />
+        <joint name="shoulder_pan_joint" value="3.14" />
+        <joint name="shoulder_lift_joint" value="-1.57" />
+        <joint name="elbow_joint" value="1.57" />
+        <joint name="wrist_1_joint" value="4.71" />
+        <joint name="wrist_2_joint" value="-1.57" />
+        <joint name="wrist_3_joint" value="0" />
+    </group_state>
+    <group_state name="robot2Home" group="manipulator">
+        <joint name="linear_arm_actuator_joint" value="-0.64" />
+        <joint name="shoulder_pan_joint" value="3.14" />
+        <joint name="shoulder_lift_joint" value="-1.57" />
+        <joint name="elbow_joint" value="1.57" />
+        <joint name="wrist_1_joint" value="4.71" />
+        <joint name="wrist_2_joint" value="-1.57" />
+        <joint name="wrist_3_joint" value="0" />
     </group_state>
 
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->

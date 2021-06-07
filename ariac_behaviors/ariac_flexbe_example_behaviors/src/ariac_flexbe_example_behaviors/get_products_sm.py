@@ -8,11 +8,11 @@
 ###########################################################
 
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, ConcurrencyContainer, PriorityContainer, Logger
+from ariac_flexbe_states.message_state import MessageState
+from ariac_logistics_flexbe_states.get_material_locations import GetMaterialLocationsState
 from ariac_logistics_flexbe_states.get_part_from_products_state import GetPartFromProductsState
 from ariac_support_flexbe_states.add_numeric_state import AddNumericState
 from ariac_support_flexbe_states.equal_state import EqualState
-from ariac_flexbe_states.message_state import MessageState
-from ariac_logistics_flexbe_states.get_material_locations import GetMaterialLocationsState
 from ariac_support_flexbe_states.get_item_from_list_state import GetItemFromListState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
@@ -51,7 +51,7 @@ This example is a part of the order example.
 
 	def create(self):
 		# x:719 y:341, x:826 y:25
-		_state_machine = OperatableStateMachine(outcomes=['finished', 'fail'], input_keys=['Products', 'NumberOfProducts'])
+		_state_machine = OperatableStateMachine(outcomes=['finished', 'fail'], input_keys=['Products', 'NumberOfProducts'], output_keys=['ProductPose', 'ProductType'])
 		_state_machine.userdata.ProductIterator = 0
 		_state_machine.userdata.OneValue = 1
 		_state_machine.userdata.ProductType = ''
@@ -76,33 +76,12 @@ This example is a part of the order example.
 										autonomy={'continue': Autonomy.Off, 'invalid_index': Autonomy.Off},
 										remapping={'products': 'Products', 'index': 'ProductIterator', 'type': 'ProductType', 'pose': 'ProductPose'})
 
-			# x:817 y:258
-			OperatableStateMachine.add('IncrementProductIterator',
-										AddNumericState(),
-										transitions={'done': 'CompareProductIterator'},
-										autonomy={'done': Autonomy.Off},
-										remapping={'value_a': 'ProductIterator', 'value_b': 'OneValue', 'result': 'ProductIterator'})
-
-			# x:625 y:256
-			OperatableStateMachine.add('CompareProductIterator',
-										EqualState(),
-										transitions={'true': 'finished', 'false': 'GetProduct'},
-										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
-										remapping={'value_a': 'ProductIterator', 'value_b': 'NumberOfProducts'})
-
-			# x:569 y:121
-			OperatableStateMachine.add('ProductTypeMessage',
-										MessageState(),
-										transitions={'continue': 'ProductPoseMassage'},
-										autonomy={'continue': Autonomy.Off},
-										remapping={'message': 'ProductType'})
-
-			# x:728 y:120
-			OperatableStateMachine.add('ProductPoseMassage',
-										MessageState(),
-										transitions={'continue': 'GetMaterialsLocation'},
-										autonomy={'continue': Autonomy.Off},
-										remapping={'message': 'ProductPose'})
+			# x:1226 y:120
+			OperatableStateMachine.add('GerMaterailLocation',
+										GetItemFromListState(),
+										transitions={'done': 'MaterailLocationMessage', 'invalid_index': 'fail'},
+										autonomy={'done': Autonomy.Off, 'invalid_index': Autonomy.Off},
+										remapping={'list': 'MaterialsLocationList', 'index': 'MaterailLocationIndex', 'item': 'MaterialLocation'})
 
 			# x:877 y:120
 			OperatableStateMachine.add('GetMaterialsLocation',
@@ -111,19 +90,12 @@ This example is a part of the order example.
 										autonomy={'continue': Autonomy.Off},
 										remapping={'part': 'ProductType', 'material_locations': 'MaterialsLocationList'})
 
-			# x:1046 y:119
-			OperatableStateMachine.add('MaterialsLocationListMessage',
-										MessageState(),
-										transitions={'continue': 'GerMaterailLocation'},
-										autonomy={'continue': Autonomy.Off},
-										remapping={'message': 'MaterialsLocationList'})
-
-			# x:1226 y:120
-			OperatableStateMachine.add('GerMaterailLocation',
-										GetItemFromListState(),
-										transitions={'done': 'MaterailLocationMessage', 'invalid_index': 'fail'},
-										autonomy={'done': Autonomy.Off, 'invalid_index': Autonomy.Off},
-										remapping={'list': 'MaterialsLocationList', 'index': 'MaterailLocationIndex', 'item': 'MaterialLocation'})
+			# x:817 y:258
+			OperatableStateMachine.add('IncrementProductIterator',
+										AddNumericState(),
+										transitions={'done': 'CompareProductIterator'},
+										autonomy={'done': Autonomy.Off},
+										remapping={'value_a': 'ProductIterator', 'value_b': 'OneValue', 'result': 'ProductIterator'})
 
 			# x:1406 y:124
 			OperatableStateMachine.add('MaterailLocationMessage',
@@ -131,6 +103,34 @@ This example is a part of the order example.
 										transitions={'continue': 'IncrementProductIterator'},
 										autonomy={'continue': Autonomy.Off},
 										remapping={'message': 'MaterialLocation'})
+
+			# x:1046 y:119
+			OperatableStateMachine.add('MaterialsLocationListMessage',
+										MessageState(),
+										transitions={'continue': 'GerMaterailLocation'},
+										autonomy={'continue': Autonomy.Off},
+										remapping={'message': 'MaterialsLocationList'})
+
+			# x:728 y:120
+			OperatableStateMachine.add('ProductPoseMassage',
+										MessageState(),
+										transitions={'continue': 'GetMaterialsLocation'},
+										autonomy={'continue': Autonomy.Off},
+										remapping={'message': 'ProductPose'})
+
+			# x:569 y:121
+			OperatableStateMachine.add('ProductTypeMessage',
+										MessageState(),
+										transitions={'continue': 'ProductPoseMassage'},
+										autonomy={'continue': Autonomy.Off},
+										remapping={'message': 'ProductType'})
+
+			# x:625 y:256
+			OperatableStateMachine.add('CompareProductIterator',
+										EqualState(),
+										transitions={'true': 'finished', 'false': 'GetProduct'},
+										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
+										remapping={'value_a': 'ProductIterator', 'value_b': 'NumberOfProducts'})
 
 
 		return _state_machine

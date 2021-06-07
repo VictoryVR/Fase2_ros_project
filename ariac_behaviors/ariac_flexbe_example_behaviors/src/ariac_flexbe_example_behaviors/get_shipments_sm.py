@@ -8,11 +8,11 @@
 ###########################################################
 
 from flexbe_core import Behavior, Autonomy, OperatableStateMachine, ConcurrencyContainer, PriorityContainer, Logger
+from ariac_flexbe_example_behaviors.get_products_sm import get_productsSM
+from ariac_flexbe_states.message_state import MessageState
 from ariac_logistics_flexbe_states.get_products_from_shipment_state import GetProductsFromShipmentState
 from ariac_support_flexbe_states.add_numeric_state import AddNumericState
 from ariac_support_flexbe_states.equal_state import EqualState
-from ariac_flexbe_example_behaviors.get_products_sm import get_productsSM
-from ariac_flexbe_states.message_state import MessageState
 # Additional imports can be added inside the following tags
 # [MANUAL_IMPORT]
 
@@ -51,7 +51,7 @@ This example is a part of the order example.
 
 	def create(self):
 		# x:926 y:151, x:511 y:227
-		_state_machine = OperatableStateMachine(outcomes=['finished', 'fail'], input_keys=['Shipments', 'NumberOfShipments'])
+		_state_machine = OperatableStateMachine(outcomes=['finished', 'fail'], input_keys=['Shipments', 'NumberOfShipments'], output_keys=['ProductPose', 'ProductType'])
 		_state_machine.userdata.Shipments = []
 		_state_machine.userdata.NumberOfShipments = 0
 		_state_machine.userdata.Products = []
@@ -61,6 +61,8 @@ This example is a part of the order example.
 		_state_machine.userdata.ShipmentType = ''
 		_state_machine.userdata.ShipmentIterator = 0
 		_state_machine.userdata.OneValue = 1
+		_state_machine.userdata.ProductPose = []
+		_state_machine.userdata.ProductType = []
 
 		# Additional creation code can be added inside the following tags
 		# [MANUAL_CREATE]
@@ -76,13 +78,6 @@ This example is a part of the order example.
 										autonomy={'continue': Autonomy.Off, 'invalid_index': Autonomy.Off},
 										remapping={'shipments': 'Shipments', 'index': 'ShipmentIterator', 'shipment_type': 'ShipmentType', 'agv_id': 'AgvID', 'products': 'Products', 'number_of_products': 'NumberOfProducts'})
 
-			# x:740 y:34
-			OperatableStateMachine.add('IncrementShipmentsIterator',
-										AddNumericState(),
-										transitions={'done': 'CompareShepmentsIterator'},
-										autonomy={'done': Autonomy.Off},
-										remapping={'value_a': 'ShipmentIterator', 'value_b': 'OneValue', 'result': 'ShipmentIterator'})
-
 			# x:740 y:120
 			OperatableStateMachine.add('CompareShepmentsIterator',
 										EqualState(),
@@ -90,12 +85,12 @@ This example is a part of the order example.
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'ShipmentIterator', 'value_b': 'NumberOfShipments'})
 
-			# x:564 y:30
-			OperatableStateMachine.add('get_products',
-										self.use_behavior(get_productsSM, 'get_products'),
-										transitions={'finished': 'IncrementShipmentsIterator', 'fail': 'fail'},
-										autonomy={'finished': Autonomy.Inherit, 'fail': Autonomy.Inherit},
-										remapping={'Products': 'Products', 'NumberOfProducts': 'NumberOfProducts'})
+			# x:740 y:34
+			OperatableStateMachine.add('IncrementShipmentsIterator',
+										AddNumericState(),
+										transitions={'done': 'CompareShepmentsIterator'},
+										autonomy={'done': Autonomy.Off},
+										remapping={'value_a': 'ShipmentIterator', 'value_b': 'OneValue', 'result': 'ShipmentIterator'})
 
 			# x:252 y:25
 			OperatableStateMachine.add('ShipmenTypeMessage',
@@ -103,6 +98,13 @@ This example is a part of the order example.
 										transitions={'continue': 'AgvIdMessage'},
 										autonomy={'continue': Autonomy.Off},
 										remapping={'message': 'ShipmentType'})
+
+			# x:532 y:30
+			OperatableStateMachine.add('get_products',
+										self.use_behavior(get_productsSM, 'get_products'),
+										transitions={'finished': 'IncrementShipmentsIterator', 'fail': 'fail'},
+										autonomy={'finished': Autonomy.Inherit, 'fail': Autonomy.Inherit},
+										remapping={'Products': 'Products', 'NumberOfProducts': 'NumberOfProducts', 'ProductPose': 'ProductPose', 'ProductType': 'ProductType'})
 
 			# x:416 y:28
 			OperatableStateMachine.add('AgvIdMessage',

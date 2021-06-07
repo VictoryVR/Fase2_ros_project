@@ -54,7 +54,7 @@ class pick_part_from_binSM(Behavior):
 
 
 	def create(self):
-		# x:202 y:115, x:898 y:309
+		# x:319 y:186, x:898 y:309
 		_state_machine = OperatableStateMachine(outcomes=['finished', 'failed'], input_keys=['part', 'robot_namespace', 'robot'])
 		_state_machine.userdata.part = ''
 		_state_machine.userdata.robot_namespace = ''
@@ -82,6 +82,8 @@ class pick_part_from_binSM(Behavior):
 		_state_machine.userdata.gripper_enabled = False
 		_state_machine.userdata.gripper_attached = False
 		_state_machine.userdata.true_var = True
+		_state_machine.userdata.r1_home_config = 'robot1PreGraspBin6'
+		_state_machine.userdata.r2_home_config = 'robot2PreGraspBin1'
 
 		# Additional creation code can be added inside the following tags
 		# [MANUAL_CREATE]
@@ -90,7 +92,7 @@ class pick_part_from_binSM(Behavior):
 
 
 		with _state_machine:
-			# x:52 y:53
+			# x:35 y:36
 			OperatableStateMachine.add('GetPartLocation',
 										GetMaterialLocationsState(),
 										transitions={'continue': 'GetBinFromLocations'},
@@ -111,17 +113,17 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'done': Autonomy.Off},
 										remapping={'text_value': 'part_height', 'float_value': 'part_height'})
 
-			# x:1394 y:66
+			# x:1570 y:60
 			OperatableStateMachine.add('DetectCameraPart',
 										DetectPartCameraAriacState(time_out=1),
 										transitions={'continue': 'movePre', 'failed': 'failed', 'not_found': 'failed'},
 										autonomy={'continue': Autonomy.Off, 'failed': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'ref_frame': 'camera_ref_frame', 'camera_topic': 'camera_topic', 'camera_frame': 'camera_frame', 'part': 'part', 'pose': 'pose'})
 
-			# x:496 y:51
+			# x:428 y:40
 			OperatableStateMachine.add('Differ r1 from r2',
 										EqualState(),
-										transitions={'true': 'LookupCameraTopic', 'false': 'LookupCameraTopic_2'},
+										transitions={'true': 'R1 Home', 'false': 'R2 Home'},
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'robot', 'value_b': 'robot1'})
 
@@ -132,7 +134,7 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'true': Autonomy.Off, 'false': Autonomy.Off},
 										remapping={'value_a': 'robot', 'value_b': 'robot1'})
 
-			# x:270 y:51
+			# x:206 y:36
 			OperatableStateMachine.add('GetBinFromLocations',
 										GetItemFromListState(),
 										transitions={'done': 'Differ r1 from r2', 'invalid_index': 'failed'},
@@ -146,42 +148,42 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'found': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'index_value': 'part', 'column_value': 'part_height'})
 
-			# x:984 y:38
+			# x:1082 y:18
 			OperatableStateMachine.add('LookupCameraFrame',
 										LookupFromTableState(parameter_name='/ariac_unit1_tables', table_name='robot_1_table', index_title='bin', column_title='camera_frame'),
 										transitions={'found': 'LookupPreGrasp', 'not_found': 'failed'},
 										autonomy={'found': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'index_value': 'bin', 'column_value': 'camera_frame'})
 
-			# x:984 y:100
+			# x:1089 y:94
 			OperatableStateMachine.add('LookupCameraFrame_2',
 										LookupFromTableState(parameter_name='/ariac_unit1_tables', table_name='robot_2_table', index_title='bin', column_title='camera_frame'),
 										transitions={'found': 'LookupPreGrasp_2', 'not_found': 'failed'},
 										autonomy={'found': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'index_value': 'bin', 'column_value': 'camera_frame'})
 
-			# x:750 y:45
+			# x:885 y:30
 			OperatableStateMachine.add('LookupCameraTopic',
 										LookupFromTableState(parameter_name='/ariac_unit1_tables', table_name='robot_1_table', index_title='bin', column_title='camera_topic'),
 										transitions={'found': 'LookupCameraFrame', 'not_found': 'failed'},
 										autonomy={'found': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'index_value': 'bin', 'column_value': 'camera_topic'})
 
-			# x:750 y:107
+			# x:874 y:97
 			OperatableStateMachine.add('LookupCameraTopic_2',
 										LookupFromTableState(parameter_name='/ariac_unit1_tables', table_name='robot_2_table', index_title='bin', column_title='camera_topic'),
 										transitions={'found': 'LookupCameraFrame_2', 'not_found': 'failed'},
 										autonomy={'found': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'index_value': 'bin', 'column_value': 'camera_topic'})
 
-			# x:1181 y:23
+			# x:1287 y:21
 			OperatableStateMachine.add('LookupPreGrasp',
 										LookupFromTableState(parameter_name='/ariac_unit1_tables', table_name='robot_1_table', index_title='bin', column_title='robot_config'),
 										transitions={'found': 'DetectCameraPart', 'not_found': 'failed'},
 										autonomy={'found': Autonomy.Off, 'not_found': Autonomy.Off},
 										remapping={'index_value': 'bin', 'column_value': 'robot_config'})
 
-			# x:1181 y:85
+			# x:1285 y:92
 			OperatableStateMachine.add('LookupPreGrasp_2',
 										LookupFromTableState(parameter_name='/ariac_unit1_tables', table_name='robot_2_table', index_title='bin', column_title='robot_config'),
 										transitions={'found': 'DetectCameraPart', 'not_found': 'failed'},
@@ -195,7 +197,7 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off},
 										remapping={'action_topic_namespace': 'robot_namespace', 'move_group': 'move_group', 'action_topic': 'action_topic', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:1397 y:245
+			# x:1596 y:252
 			OperatableStateMachine.add('MoveToBin',
 										MoveitToJointsDynAriacState(),
 										transitions={'reached': 'GetPartheightTable', 'planning_failed': 'failed', 'control_failed': 'failed'},
@@ -209,10 +211,24 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off},
 										remapping={'action_topic_namespace': 'robot_namespace', 'move_group': 'move_group', 'action_topic': 'action_topic', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:271 y:492
+			# x:647 y:19
+			OperatableStateMachine.add('R1 Home',
+										SrdfStateToMoveitAriac(),
+										transitions={'reached': 'LookupCameraTopic', 'planning_failed': 'failed', 'control_failed': 'failed', 'param_error': 'failed'},
+										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off, 'param_error': Autonomy.Off},
+										remapping={'config_name': 'r1_home_config', 'move_group': 'move_group', 'action_topic_namespace': 'robot_namespace', 'action_topic': 'action_topic', 'robot_name': 'robot_name', 'config_name_out': 'config_name_out', 'move_group_out': 'move_group_out', 'robot_name_out': 'robot_name_out', 'action_topic_out': 'action_topic_out', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
+
+			# x:646 y:96
+			OperatableStateMachine.add('R2 Home',
+										SrdfStateToMoveitAriac(),
+										transitions={'reached': 'LookupCameraTopic_2', 'planning_failed': 'failed', 'control_failed': 'failed', 'param_error': 'failed'},
+										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off, 'param_error': Autonomy.Off},
+										remapping={'config_name': 'r2_home_config', 'move_group': 'move_group', 'action_topic_namespace': 'robot_namespace', 'action_topic': 'action_topic', 'robot_name': 'robot_name', 'config_name_out': 'config_name_out', 'move_group_out': 'move_group_out', 'robot_name_out': 'robot_name_out', 'action_topic_out': 'action_topic_out', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
+
+			# x:224 y:435
 			OperatableStateMachine.add('WaitForGrip',
 										WaitState(wait_time=1),
-										transitions={'done': 'CheckState'},
+										transitions={'done': 'movePre_2'},
 										autonomy={'done': Autonomy.Off})
 
 			# x:1435 y:658
@@ -277,7 +293,7 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'continue': Autonomy.Off, 'fail': Autonomy.Off},
 										remapping={'topic_name': 'gripper2_status_topic', 'enabled': 'gripper_enabled', 'attached': 'gripper_attached'})
 
-			# x:1408 y:172
+			# x:1617 y:169
 			OperatableStateMachine.add('movePre',
 										SrdfStateToMoveitAriac(),
 										transitions={'reached': 'MoveToBin', 'planning_failed': 'failed', 'control_failed': 'failed', 'param_error': 'failed'},
@@ -291,7 +307,7 @@ class pick_part_from_binSM(Behavior):
 										autonomy={'reached': Autonomy.Off, 'planning_failed': Autonomy.Off, 'control_failed': Autonomy.Off, 'param_error': Autonomy.Off},
 										remapping={'config_name': 'robot_config', 'move_group': 'move_group', 'action_topic_namespace': 'robot_namespace', 'action_topic': 'action_topic', 'robot_name': 'robot_name', 'config_name_out': 'config_name_out', 'move_group_out': 'move_group_out', 'robot_name_out': 'robot_name_out', 'action_topic_out': 'action_topic_out', 'joint_values': 'joint_values', 'joint_names': 'joint_names'})
 
-			# x:80 y:454
+			# x:38 y:501
 			OperatableStateMachine.add('CheckState',
 										EqualState(),
 										transitions={'true': 'movePre_2', 'false': 'DetectCameraPart'},
